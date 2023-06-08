@@ -5,6 +5,9 @@ import { categories } from '../utils/data';
 import Loader from './Loader';
 import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { storage } from '../firebase.config';
+import { getAllFoodItems, saveItem } from '../utils/firebaseFunctions';
+import { actionType } from '../context/reducer';
+import { useStateValue } from '../context/StateProvider';
 
 
 const CreateContainer = () => {
@@ -18,6 +21,8 @@ const CreateContainer = () => {
   const [alertStatus, setAlertStatus] = useState("danger");
   const [msg, setMsg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const[{ foodItems } , dispatch] = useStateValue();
+
 
   function uploadImage(e){
     setIsLoading(true)
@@ -64,7 +69,65 @@ const CreateContainer = () => {
     })
   }
   function saveDetails(){
+    setIsLoading(true);
+    try {
+      if(!title || !calories || !imageAsset || !price || !category){
+        setFields(true)
+        setMsg("les champs sont obligatoire !")
+        setAlertStatus("danger");
+        setTimeout(() => {
+          setFields(false)
+          setIsLoading(false)
+        }, 4000);
+      }else{
+        const data = {
+          id: `${Date.now()}`,
+          title: title,
+          imageURL : imageAsset,
+          category : category,
+          calories : calories,
+          qty : 1,
+          price : price
+        }
+        saveItem(data);
+        setIsLoading(false);
+        setFields(true);
+        setMsg("produit ajouter avec succes");
+        clearData()
+        setAlertStatus('success');
+        setTimeout(() => {
+          setFields(false)
+        }, 2000);
+      }
+    } catch (error) {
+      console.log(error);
+      setFields(true);
+      setMsg("Une erreur c'est produite - Veuillez Reessayer");
+      setAlertStatus('danger')
+      setTimeout(() => {
+        setFields(false);
+        setIsLoading(false);
+      }, 4000)
+    }
 
+    fetchData()
+  }
+
+  function clearData() {
+    setTitle("")
+    setImageAsset(null)
+    setCalories()
+    setPrice("")
+    setCategory("choisissez une categories")
+  }
+
+  const fetchData = async () => {
+    await getAllFoodItems().then(data => {
+      dispatch({
+        type: actionType.SET_FOOD_ITEMS,
+        foodItems: data
+      })
+    })
   }
 
   return (
