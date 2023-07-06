@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { IoFastFood } from "react-icons/io5";
 import { categories } from "../utils/data";
+import {motion} from 'framer-motion';
+import { RowContainer } from './index'
+import { useStateValue } from "../context/StateProvider";
 
 function MenuContainer() {
   const [filter, setFilter] = useState("chiken");
+
+  const [{foodItems}, dispatch] = useStateValue()
 
   return (
     <section className="w-full my-6">
@@ -22,20 +27,28 @@ function MenuContainer() {
         >
           {categories &&
             categories.map((categorie) => (
-              <div
+              <motion.div
+              whileTap={{scale: 0.70}}
                 key={categorie.id}
                 className={`group ${filter === categorie.urlParamName ? 'bg-cartNumBg' : 'bg-card'} w-24 min-w-[94px] h-28 cursor-pointer rounded-lg
-                            drop-shadow-xl flex flex-col gap-3 items-center justify-center hover:bg-cartNumBg duration-150 transition-all ease-in-out`}>
+                            drop-shadow-xl flex flex-col gap-3 items-center justify-center
+                             hover:bg-cartNumBg`}
+                  onClick={() => setFilter(categorie.urlParamName)}
+                >
                     <div className={`w-10 h-10 rounded-full shadow-lg
-                                ${filter === categorie.urlParamName ? 'bg-white' : 'bg-cartNumBg'} group-hover:bg-white flex
+                                ${filter === categorie.urlParamName ? 'bg-white' : 'bg-cartNumBg'} group-hover:bg-white shadow-lg flex
                                 items-center justify-center`}>
                   <IoFastFood className={`${filter === categorie.urlParamName ? 'text-textColor' : 'text-white'} group-hover:text-textColor text-lg`} />
                 </div>
                 <p className={`text-sm  ${filter === categorie.urlParamName ? 'text-white' : 'text-textColor'} group-hover:text-white`}>
                   {categorie.name}
                 </p>
-              </div>
+              </motion.div>
             ))}
+        </div>
+
+        <div className="w-full">
+              <RowContainer flag={false} data={foodItems?.filter(n => n.category === filter)}  />
         </div>
       </div>
     </section>
