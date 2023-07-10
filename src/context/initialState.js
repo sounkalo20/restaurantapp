@@ -4,5 +4,6 @@ const userInfo = fetchUser()
 
 export const initalState = {
     user: userInfo,
-    foodItems : null
+    foodItems : null,
+    cartShow : false
 }
