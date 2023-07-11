@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { CreateContainer, Header,Container } from './components'
+import { CreateContainer, Header,Container, Contact } from './components'
 import { Route, Routes } from 'react-router-dom'
 import {AnimatePresence} from 'framer-motion'
 import { useStateValue } from './context/StateProvider'
@@ -27,6 +27,7 @@ const App = () => {
                 <Routes>
                     <Route path='/*' element={<Container />}/>
                     <Route path='/createItem' element={<CreateContainer />}/>
+                    <Route path='/contact' element={<Contact />}/>
                 </Routes>
             </main>
         </div>
