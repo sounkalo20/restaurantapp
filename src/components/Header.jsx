@@ -14,7 +14,7 @@ const Header = () => {
     const firebaseAuth = getAuth(app)
     const provider = new GoogleAuthProvider();
 
-    const [{ user, cartShow, cartItems},dispatch]= useStateValue()
+    const [{ user, cartShow, cartItems },dispatch]= useStateValue()
 
     const [isMenu,setIsMenu] = useState(false)
 

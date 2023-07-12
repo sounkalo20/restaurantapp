@@ -15,6 +15,7 @@ function RowContainer({ flag, data, scrollValue }) {
 
   const addtocart = (item) => {
     console.log(item);
+    
     dispatch ({
       type : actionType.SET_CARTITEMS,
       cartItems : items,
