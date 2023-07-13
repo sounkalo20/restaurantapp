@@ -1,30 +1,57 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiMinus, BiPlus } from "react-icons/bi";
 import { motion } from "framer-motion";
 import { useStateValue } from "../context/StateProvider";
+import { actionType } from "../context/reducer";
 
+let items=[]
 
+export default function CartItem({ item, setFlag, flag }) {
+  const [qty, setQty] = useState(item.qty);
+  const [{ cartItems }, dispatch] = useStateValue();
 
-export default function CartItem({item}) {
+  const cartDispatch = () => {
+    localStorage.setItem("cartItems", JSON.stringify(items));
+    dispatch({
+      type: actionType.SET_CARTITEMS,
+      cartItems: items,
+    });
+  };
 
-    const [qty, setQty] = useState(1)
-    const [{ cartItems }, dispatch] = useStateValue();
-
-    const updateQty = (action, id) => {
-        if (action) {
-            setQty(qty + 1)
-                cartItems.map(item => {
-                    if (item.id === id) {
-                        item.qty +=1
-                    }
-                } )
+  const updateQty = (action, id) => {
+    if (action == "add") {
+      setQty(qty + 1);
+      cartItems.map((item) => {
+        if (item.id === id) {
+          item.qty += 1;
+          setFlag(flag + 1)
         }
+      });
+      cartDispatch();
+    } else {
+      if (qty == 1) {
+        items = cartItems.filter((item) => item.id !== id)
+        setFlag(flag + 1)
+        cartDispatch();
+      } else {
+        setQty(qty - 1);
+        cartItems.map((item) => {
+          if (item.id === id) {
+            item.qty -= 1;
+            setFlag(flag + 1)
+          }
+        });
+        cartDispatch();
+      }
     }
+  };
+
+  useEffect(() => {
+    items = cartItems
+  }, [qty, items]);
 
   return (
-    <div
-      className="w-full p-1 px-2 rounded-lg bg-cartItem flex items-center gap-2"
-    >
+    <div className="w-full p-1 px-2 rounded-lg bg-cartItem flex items-center gap-2">
       <img
         src={item?.imageURL}
         alt=""
@@ -39,7 +66,10 @@ export default function CartItem({item}) {
       </div>
 
       <div className="group flex items-center gap-2 ml-auto cursor-pointer">
-        <motion.div whileTap={{ scale: 0.75 }}  onClick={() => updateQty("remove", item?.id)}>
+        <motion.div
+          whileTap={{ scale: 0.75 }}
+          onClick={() => updateQty("remove", item?.id)}
+        >
           <BiMinus className="text-gray-50" />
         </motion.div>
         <p
@@ -48,7 +78,10 @@ export default function CartItem({item}) {
         >
           {qty}
         </p>
-        <motion.div whileTap={{ scale: 0.75 }}  onClick={() => updateQty("add", item?.id)}>
+        <motion.div
+          whileTap={{ scale: 0.75 }}
+          onClick={() => updateQty("add", item?.id)}
+        >
           <BiPlus className="text-gray-50" />
         </motion.div>
       </div>

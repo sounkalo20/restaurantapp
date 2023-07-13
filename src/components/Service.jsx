@@ -1,4 +1,8 @@
 import React from "react";
+import {GiFoodTruck} from "react-icons/gi"
+import {BiFoodMenu} from "react-icons/bi"
+import {MdFoodBank} from "react-icons/md"
+import {GiOpenedFoodCan} from "react-icons/gi"
 
 export default function Service() {
   return (
@@ -8,75 +12,52 @@ export default function Service() {
         <div class="card">
           <div class="content">
             <div class="icon">
-              <i class="fa fa-code"></i>
+              <GiFoodTruck />
             </div>
-            <div class="title">Web Development</div>
+            <div class="title">livraison à domicile</div>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum,
-              reprehenderit.
+              Les restaurants proposent la livraison de leurs plats 
+              directement à votre porte, offrant ainsi la commodité de savourer leurs 
             </p>
           </div>
         </div>
         <div class="card">
           <div class="content">
             <div class="icon">
-              <i class="fa fa-mobile"></i>
+              <BiFoodMenu />
             </div>
-            <div class="title">App Development</div>
+            <div class="title">Service de restauration</div>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum,
-              reprehenderit.
+              Une expérience culinaire complète dans le confort du restaurant. 
+              Du moment où vous entrez jusqu'à votre départ. 
             </p>
           </div>
         </div>
         <div class="card">
           <div class="content">
             <div class="icon">
-              <i class="fa fa-paint-brush"></i>
+              <MdFoodBank />
             </div>
-            <div class="title">Web Design </div>
+            <div class="title">Service traiteur</div>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum,
-              reprehenderit.
+            Nous avons un service traiteur pour 
+            les événements spéciaux tels que les mariages, les anniversaires, les réunions d'entreprise, etc.
             </p>
           </div>
         </div>
         <div class="card">
           <div class="content">
             <div class="icon">
-              <i class="fa fa-laptop"></i>
+              <GiOpenedFoodCan />
             </div>
-            <div class="title">Responsive Design </div>
+            <div class="title">Service de dégustation </div>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum,
-              reprehenderit.
+            Nous offront des dégustations spéciales 
+            où vous pouvez découvrir une variété de plats et de saveurs.
             </p>
           </div>
         </div>
-        <div class="card">
-          <div class="content">
-            <div class="icon">
-              <i class="fa fa-line-chart"></i>
-            </div>
-            <div class="title">Advertising </div>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum,
-              reprehenderit.
-            </p>
-          </div>
-        </div>
-        <div class="card">
-          <div class="content">
-            <div class="icon">
-              <i class="fa fa-wordpress"></i>
-            </div>
-            <div class="title">Wordpress</div>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum,
-              reprehenderit.
-            </p>
-          </div>
-        </div>
+        
       </section>
     </div>
   );

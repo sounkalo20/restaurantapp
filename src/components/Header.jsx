@@ -54,7 +54,7 @@ const Header = () => {
         <div className='hidden md:flex w-full h-full items-center justify-between'>
             <Link to={"/"} className='flex items-center gap-2'>
                 <img src={Logo} alt="le logo" className='w-9 object-cover'/>
-                <p className='text-headingColor text-xl font-bold'>GoodLy</p>
+                <p className='text-headingColor text-xl font-bold'>Street Food</p>
             </Link>
             
             <div  className='flex items-center gap-8'>
@@ -63,12 +63,15 @@ const Header = () => {
                 animate={{opacity:1,x:0}}
                 exit={{opacity:0,x:200}}
                 className='flex items-center gap-8'>
-                    <li className='text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out'>Acceuil</li>
-                    <li className='text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out'>Menu</li>
+                    <Link to={"/"}>
+                        <li className='text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out hover:bg-slate-200 px-4 py-2' onClick={() => setIsMenu(false)}>Acceuil</li>
+                    </Link>
                     <Link to={'/contact'}>
                         <li className='text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out'>Contact</li>
                     </Link>
-                    <li className='text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out'>Services</li>
+                    <Link to={'/service'}>
+                        <li className='text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out'>Services</li>
+                    </Link>
                 </motion.ul>
                 
                 <div className='relative flex items-center justify-center' onClick={showCart}>
@@ -163,10 +166,15 @@ const Header = () => {
                             }
                             
                             <ul className='flex flex-col'>
-                                <li className='text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out hover:bg-slate-200 px-4 py-2' onClick={() => setIsMenu(false)}>Acceuil</li>
-                                <li className='text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out hover:bg-slate-200 px-4 py-2' onClick={() => setIsMenu(false)}>Menu</li>
-                                <li className='text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out hover:bg-slate-200 px-4 py-2' onClick={() => setIsMenu(false)}>A propos</li>
-                                <li className='text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out hover:bg-slate-200 px-4 py-2' onClick={() => setIsMenu(false)}>Services</li>
+                                <Link to={"/"}>
+                                    <li className='text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out hover:bg-slate-200 px-4 py-2' onClick={() => setIsMenu(false)}>Acceuil</li>
+                                </Link>
+                                <Link to={'/contact'}>
+                                    <li className='text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out'>Contact</li>
+                                </Link>
+                                <Link to={'/service'}>
+                                    <li className='text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out'>Services</li>
+                                </Link>
                             </ul>
 
                             <p className='m-2 p-2 rounded-md shadow-md flex items-center justify-center gap-3 cursor-pointer hover:bg-slate-200 bg-gray-200 transition-all duration-150 ease-in-out text-textColor text-base px-4 py-2' onClick={logout}>

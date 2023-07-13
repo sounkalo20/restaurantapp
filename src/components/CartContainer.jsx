@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import { RiRefreshFill } from "react-icons/ri";
 import { motion } from "framer-motion";
@@ -9,6 +9,8 @@ import CartItem from "./CartItem";
 
 const CartContainer = () => {
   const [{ cartShow, cartItems, user }, dispatch] = useStateValue();
+  const [tot,setTot] = useState(0)
+  const [flag,setFlag] = useState(0)
 
   const showCart = () => {
     dispatch({
@@ -16,6 +18,24 @@ const CartContainer = () => {
       cartShow: !cartShow,
     });
   };
+
+  useEffect(() => {
+    let totalPrice = cartItems.reduce(function(accumulator, item) {
+      return accumulator + item.qty * item.price
+    }, 0);
+    setTot(totalPrice)
+    console.log(tot);
+  }, [tot, flag])
+
+  const clearCart = () => {
+    dispatch({
+      type : actionType.SET_CARTITEMS,
+      cartItems : []
+    })
+
+    localStorage.setItem("cartItems", JSON.stringify([]))
+  }
+  
   return (
     <motion.div
       initial={{ opacity: 0, x: 200 }}
@@ -34,6 +54,7 @@ const CartContainer = () => {
           whileTap={{ scale: 0.75 }}
           className="flex items-center gap-2 p-1 px-2 my-2 bg-gray-100 rounded-md hover:shadow-md
          cursor-pointer text-textColor text-base"
+         onClick={clearCart}
         >
           clear <RiRefreshFill /> {""}
         </motion.p>
@@ -49,25 +70,30 @@ const CartContainer = () => {
             {/* card item */}
             {cartItems &&
               cartItems.map((item) => (
-               <CartItem key={item.id} item={item}/>
+               <CartItem 
+                key={item.id} 
+                item={item}
+                setFlag={setFlag}
+                flag={flag}
+                />
               ))}
           </div>
             {/* card total zone */}
           <div className="w-full flex-1 bg-cartTotal rounded-t-[2rem] flex flex-col items-center justify-evenly px-8 py-2">
             <div className="w-full flex items-center justify-between">
-              <p className="text-gray-400 text-lg">Sub Total</p>
-              <p className="text-gray-400 text-lg">2000</p>
+              <p className="text-gray-400 text-lg">Total prix</p>
+              <p className="text-gray-400 text-lg">FCFA {tot}</p>
             </div>
             <div className="w-full flex items-center justify-between">
-              <p className="text-gray-400 text-lg">Delivery</p>
-              <p className="text-gray-400 text-lg">1000</p>
+              <p className="text-gray-400 text-lg">livraison</p>
+              <p className="text-gray-400 text-lg">FCFA 1000</p>
             </div>
 
             <div className="w-full border-b border-gray-600 my-2"></div>
 
             <div className="w-full flex items-center justify-between">
               <p className="text-gray-200 text-xl font-semibold">Total</p>
-              <p className="text-gray-200 text-xl font-semibold">2500</p>
+              <p className="text-gray-200 text-xl font-semibold">FCFA {tot + 1000}</p>
             </div>
 
             {user ? (

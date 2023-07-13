@@ -10,7 +10,7 @@
 body{
     height: 100vh;
     position: relative;
-    background: #111;
+    /* background: #111; */
     color: white;
 }
 
@@ -63,10 +63,14 @@ body{
 .container .services .card .content .icon{
     padding: 5px 0;
     color: white;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.container .services .card .content .icon i{
-    font-size: 40px;
+.container .services .card .content .icon *{
+    font-size: 60px;
 }
 
 .container .services .card:hover .content .title{
