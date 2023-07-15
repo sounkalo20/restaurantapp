@@ -1,64 +1,82 @@
-import React, { useEffect, useRef, useState } from 'react'
-import HomeContainer from './HomeContainer'
-import {motion} from 'framer-motion'
-import {MdChevronLeft,MdChevronRight} from 'react-icons/md'
-import RowContainer from './RowContainer'
-import { useStateValue } from '../context/StateProvider'
-import MenuContainer from './MenuContainer'
-import CartContainer from './CartContainer'
+import React, { useEffect, useRef, useState } from "react";
+import HomeContainer from "./HomeContainer";
+import { motion } from "framer-motion";
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import RowContainer from "./RowContainer";
+import { useStateValue } from "../context/StateProvider";
+import MenuContainer from "./MenuContainer";
+import CartContainer from "./CartContainer";
+import {AiFillCheckCircle} from "react-icons/ai"
 
 const Container = () => {
-  const [{foodItems , cartShow},dispatch] = useStateValue();
-  const [scrollValue,setScroll] = useState(0)
+  const [{ foodItems, cartShow }, dispatch] = useStateValue();
+  const [scrollValue, setScroll] = useState(0);
 
-  useEffect(() => {}, [scrollValue,cartShow])
+  useEffect(() => {}, [scrollValue, cartShow]);
+
+ 
+  let finish = () => {
+    window.location = document.location;
+  }
 
   return (
-    <div className='w-full h-auto flex flex-col items-center justify-center'>
-     <HomeContainer />
+    <div className="w-full h-auto flex flex-col items-center justify-center">
+      <HomeContainer />
 
-     <section className='w-full my-6'>
-        <div className='w-full flex items-center justify-between'>
-          <p className='text-2xl font-semibold capitalize text-headingColor relative
+      <section className="w-full my-6">
+        <div className="w-full flex items-center justify-between">
+          <p
+            className="text-2xl font-semibold capitalize text-headingColor relative
             before:absolute before:rounded-lg before:content before:w-32 before:h-1 before:bottom-0
-            before:left-0  before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all ease-in-out duration-100'>
+            before:left-0  before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all ease-in-out duration-100"
+          >
             Nos fruits fraits et Bons
           </p>
 
-          <div className='hidden md:flex gap-3 items-center '>
-            <motion.div 
-            whileTap={{ scale: 0.75}}
-            className='w-8 h-8 rounded-lg bg-orange-300 
+          <div className="hidden md:flex gap-3 items-center ">
+            <motion.div
+              whileTap={{ scale: 0.75 }}
+              className="w-8 h-8 rounded-lg bg-orange-300 
             hover:bg-orange-500 cursor-pointer transition-all duration-100 ease-in-out 
-            hover:shadow-lg flex items-center justify-center'
-            onClick={() => setScroll(-200)}
+            hover:shadow-lg flex items-center justify-center"
+              onClick={() => setScroll(-200)}
             >
-              <MdChevronLeft className='text-lg text-white'/>
+              <MdChevronLeft className="text-lg text-white" />
             </motion.div>
-            <motion.div 
-            whileTap={{ scale: 0.75}}
-            className='w-8 h-8 rounded-lg bg-orange-300 
+            <motion.div
+              whileTap={{ scale: 0.75 }}
+              className="w-8 h-8 rounded-lg bg-orange-300 
             hover:bg-orange-500 cursor-pointer transition-all duration-100 
-            ease-in-out hover:shadow-lg flex items-center justify-center'
-            onClick={() => setScroll(200)}
+            ease-in-out hover:shadow-lg flex items-center justify-center"
+              onClick={() => setScroll(200)}
             >
-              <MdChevronRight className='text-lg text-white'/>
+              <MdChevronRight className="text-lg text-white" />
             </motion.div>
           </div>
         </div>
 
-        <RowContainer 
-        scrollValue={scrollValue}
-        flag={true} 
-        data={foodItems?.filter((n) => n.category === "fruits")}
+        <RowContainer
+          scrollValue={scrollValue}
+          flag={true}
+          data={foodItems?.filter((n) => n.category === "fruits")}
         />
-     </section>
+      </section>
 
-     <MenuContainer />
+      <MenuContainer />
 
-     {cartShow && <CartContainer />}
+      {cartShow && <CartContainer />}
+
+      <div class="popUpNewQuantiteZone" id="validation">
+        <div class="popUpNewQuantite">
+          <p class="titlePopUp">
+            <i class="fa fa-circle-exclamation"></i>
+            <span>Votre commande a ete lancer avec succes ! Vous serrez livrez sous peu de temps chers client</span>
+          </p>
+          <button class="popUpNewQuantiteBtn" onClick={finish}> <AiFillCheckCircle /> </button>
+        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Container
+export default Container;

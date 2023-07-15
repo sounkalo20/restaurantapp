@@ -19,6 +19,10 @@ const CartContainer = () => {
     });
   };
 
+  let validate = () => {
+    document.getElementById("validation").style.display = "flex";
+  }
+
   useEffect(() => {
     let totalPrice = cartItems.reduce(function(accumulator, item) {
       return accumulator + item.qty * item.price
@@ -102,6 +106,7 @@ const CartContainer = () => {
                 type="button"
                 className="w-full p-2 rounded-full bg-orange-500 text-gray-50 text-lg my-2
             hover:shadow-lg transition-all duration-150 ease-out"
+            onClick={validate}
               >
                 confirmer
               </motion.button>

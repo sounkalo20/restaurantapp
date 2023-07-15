@@ -19,7 +19,7 @@ function MenuContainer() {
             before:left-0  before:bg-gradient-to-tr from-orange-400 to-orange-600 
             transition-all ease-in-out duration-100 mr-auto"
         >
-          Nos Saveurs chaude
+          Nos differentes saveurs
         </p>
         <div
           className="w-full flex items-center justify-start lg:justify-center gap-8 py-6
